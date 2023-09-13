@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "title": "Laptop",
+        "description": "High-performance laptop with 16GB RAM and 512GB SSD",
+        "price": 1200,
+        "thumbnail": "sin imagen",
+        "code": "LP123",
+        "stock": 30
+    },
+    {
+        "id": 2,
+        "title": "Smartphone",
+        "description": "Latest model with 5G support and three cameras",
+        "price": 6000,
+        "thumbnail": "sin imagen",
+        "code": "SM456",
+        "stock": 200
+    },
+    {
+        "id": 3,
+        "title": "Wireless Headphones",
+        "description": "Noise-cancelling over-the-ear headphones with Bluetooth",
+        "price": 250,
+        "thumbnail": "sin imagen",
+        "code": "HP789",
+        "stock": 100
+    },
+    {
+        "id": 4,
+        "title": "Smartwatch",
+        "description": "Water-resistant smartwatch with heart rate monitor",
+        "price": 199,
+        "thumbnail": "sin imagen",
+        "code": "SW012",
+        "stock": 50
+    },
+    {
+        "id": 5,
+        "title": "OLED Monitor HDR10+",
+        "description": "27-inch 4K UHD monitor for gaming and professional use",
+        "price": 300,
+        "thumbnail": "sin imagen",
+        "code": "MO345",
+        "stock": 75
+    }
+]
