@@ -8,24 +8,24 @@ export default class ProductManager {
         this.products = readFile(this.path);
     }
 
-    saveProducts() {
+    async saveProducts() {
         writeFile(this.path, this.products);
     }
 
     productExists(code) {
-        return this.products.find(producto => producto.code === code);
+        return this.products.find(product => product.code === code);
     }
 
     async addProduct(title, description, price, thumbnail, code, stock) {
         const id = (!this.products.length) ? 1 : this.products[this.products.length - 1].id + 1;
-        const nuevoProducto = new Product(id, title, description, price, thumbnail, code, stock);
+        const newProduct = new Product(id, title, description, price, thumbnail, code, stock);
 
         if (this.productExists(code)) {
             throw new Error(`El producto con el codigo ${code} ya existe!`);
         }
         validateProduct(title, description, price, thumbnail, code, stock);
-        this.products.push(nuevoProducto);
-        this.saveProducts();
+        this.products.push(newProduct);
+        await this.saveProducts();
     }
 
     async deleteProductById(id) {
@@ -34,7 +34,7 @@ export default class ProductManager {
             throw new Error('Not found');
         }
         this.products.splice(index, 1);
-        this.saveProducts();
+        await this.saveProducts();
         console.log(`Product with ID ${id} deleted successfully!!`);
     }
 
@@ -44,7 +44,7 @@ export default class ProductManager {
             throw new Error('Product not found');
         }
         Object.assign(product, updates);
-        this.saveProducts();
+        await this.saveProducts();
         console.log(`Product with ID ${id} update successfully!!`);
     }
 
@@ -57,11 +57,11 @@ export default class ProductManager {
     }
 
     async getProductById(id) {
-        const producto = this.products.find(producto => producto.id === id);
-        if (!producto) {
+        const product = this.products.find(product => product.id === id);
+        if (!product) {
             throw new Error(`Product with ID ${id} not found!`);
         }
-        return producto;
+        return product;
     }
 
 }
