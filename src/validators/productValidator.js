@@ -3,7 +3,7 @@ export const validateProduct = (title, description, price, thumbnail, code, stoc
         throw new Error('Todos los campos son obligatorios!!');
     }
 
-    if (price < 0 || stock < 0) {
+    if (price < 0 ) {
         throw new Error('El precio deben ser un valor positivo.');
     }
 
