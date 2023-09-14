@@ -35,7 +35,6 @@ export default class ProductManager {
         }
         this.products.splice(index, 1);
         await this.saveProducts();
-        console.log(`Product with ID ${id} deleted successfully!!`);
     }
 
     async updateProductById(id, updates) {
@@ -45,7 +44,6 @@ export default class ProductManager {
         }
         Object.assign(product, updates);
         await this.saveProducts();
-        console.log(`Product with ID ${id} update successfully!!`);
     }
 
 
