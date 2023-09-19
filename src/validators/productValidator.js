@@ -1,17 +1,19 @@
+import { ValidationError } from '../../errors/customErrors.js';
+
 export const validateProduct = (title, description, price, thumbnail, code, stock) => {
     if (!title || !description || typeof price !== 'number' || !thumbnail || !code || typeof stock !== 'number') {
-        throw new Error('Todos los campos son obligatorios!!');
+        throw new ValidationError('All fields are mandatory!');
     }
 
     if (price < 0 ) {
-        throw new Error('El precio deben ser un valor positivo.');
+        throw new ValidationError('Price must be a positive value.');
     }
 
     if (stock < 0) {
-        throw new Error('El stock deben ser un valor positivo.');
+        throw new ValidationError('Stock must be a positive value.');
     }
 
     if (title.length < 3) {
-        throw new Error('El nombre del producto debe tener al menos 3 caracteres');
+        throw new ValidationError('Product name must be at least 3 characters long.');
     }
 };

@@ -1,5 +1,6 @@
 import { readFile, writeFile } from '../utils/fileHelper.js';
 import { validateProduct } from '../validators/productValidator.js';
+import { NotFoundError, NotAvailableError, ConflictError } from '../../errors/customErrors.js';
 import Product from '../models/Product.js';
 
 export default class ProductManager {
@@ -21,7 +22,7 @@ export default class ProductManager {
         const newProduct = new Product(id, title, description, price, thumbnail, code, stock);
 
         if (this.productExists(code)) {
-            throw new Error(`El producto con el codigo ${code} ya existe!`);
+            throw new ConflictError(`Product with the code ${code} already exists!`);
         }
         validateProduct(title, description, price, thumbnail, code, stock);
         this.products.push(newProduct);
@@ -31,7 +32,7 @@ export default class ProductManager {
     async deleteProductById(id) {
         const index = this.products.findIndex(product => product.id === id);
         if (index === -1) {
-            throw new Error('Not found');
+            throw new NotFoundError(`Product with ID ${id} not found for delete.`);
         }
         this.products.splice(index, 1);
         await this.saveProducts();
@@ -40,7 +41,7 @@ export default class ProductManager {
     async updateProductById(id, updates) {
         const product = this.products.find(product => product.id === id);
         if (!product) {
-            throw new Error('Product not found');
+            throw new NotFoundError(`Product with ID ${id} not found for update.`);
         }
         Object.assign(product, updates);
         await this.saveProducts();
@@ -49,7 +50,7 @@ export default class ProductManager {
 
     async getProducts() {
         if (this.products.length === 0) {
-            throw new Error('No products available.');
+            throw new NotAvailableError('No products available.');
         }
         return this.products;
     }
@@ -57,7 +58,7 @@ export default class ProductManager {
     async getProductById(id) {
         const product = this.products.find(product => product.id === id);
         if (!product) {
-            throw new Error(`Product with ID ${id} not found!`);
+            throw new NotFoundError(`Product with ID ${id} not found!`);
         }
         return product;
     }
