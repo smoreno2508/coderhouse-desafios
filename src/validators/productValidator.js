@@ -1,7 +1,7 @@
 import { ValidationError } from '../../errors/customErrors.js';
 
-export const validateProduct = (title, description, price, thumbnail, code, stock) => {
-    if (!title || !description || typeof price !== 'number' || !thumbnail || !code || typeof stock !== 'number') {
+export const validateProduct = (title, category, description, price, thumbnail, code, stock) => {
+    if (!title || !category || !description || typeof price !== 'number' || !thumbnail || !code || typeof stock !== 'number') {
         throw new ValidationError('All fields are mandatory!');
     }
 

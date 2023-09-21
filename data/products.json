@@ -2,6 +2,8 @@
     {
         "id": 1,
         "title": "Laptop",
+        "status": true,
+        "category": "Laptops",
         "description": "High-performance laptop with 16GB RAM and 512GB SSD",
         "price": 1200,
         "thumbnail": "sin imagen",
@@ -11,6 +13,8 @@
     {
         "id": 2,
         "title": "Smartphone",
+        "status": true,
+        "category": "Smartphone",
         "description": "Latest model with 5G support and three cameras",
         "price": 6000,
         "thumbnail": "sin imagen",
@@ -20,6 +24,8 @@
     {
         "id": 3,
         "title": "Wireless Headphones",
+        "status": true,
+        "category": "Audio",
         "description": "Noise-cancelling over-the-ear headphones with Bluetooth",
         "price": 250,
         "thumbnail": "sin imagen",
@@ -29,6 +35,8 @@
     {
         "id": 4,
         "title": "Smartwatch",
+        "status": true,
+        "category": "wearables",
         "description": "Water-resistant smartwatch with heart rate monitor",
         "price": 199,
         "thumbnail": "sin imagen",
@@ -38,6 +46,8 @@
     {
         "id": 5,
         "title": "OLED Monitor HDR10+",
+        "status": true,
+        "category": "Monitors",
         "description": "27-inch 4K UHD monitor for gaming and professional use",
         "price": 300,
         "thumbnail": "sin imagen",

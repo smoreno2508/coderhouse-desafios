@@ -1,7 +1,6 @@
 import express from 'express';
 import errorHandler from './src/middleware/errorHandler.middleware.js';
 import mainRoutes from './src/routes/index.js';
-import {__dirname} from './src/utils/utils.js';
 
 const app = express();
 const PORT = 8080;

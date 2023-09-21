@@ -17,14 +17,14 @@ export default class ProductManager {
         return this.products.find(product => product.code === code);
     }
 
-    async addProduct(title, description, price, thumbnail, code, stock) {
+    async addProduct(title, status, category, description, price, thumbnail, code, stock) {
         const id = (!this.products.length) ? 1 : this.products[this.products.length - 1].id + 1;
-        const newProduct = new Product(id, title, description, price, thumbnail, code, stock);
+        const newProduct = new Product(id, title, status, category, description, price, thumbnail, code, stock);
 
         if (this.productExists(code)) {
             throw new ConflictError(`Product with the code ${code} already exists!`);
         }
-        validateProduct(title, description, price, thumbnail, code, stock);
+        validateProduct(title, category, description, price, thumbnail, code, stock);
         this.products.push(newProduct);
         await this.saveProducts();
     }
@@ -47,7 +47,6 @@ export default class ProductManager {
         await this.saveProducts();
     }
 
-
     async getProducts() {
         if (this.products.length === 0) {
             throw new NotAvailableError('No products available.');
@@ -61,6 +60,12 @@ export default class ProductManager {
             throw new NotFoundError(`Product with ID ${id} not found!`);
         }
         return product;
+    }
+
+    async updateProductStock(id, quantity){
+        const product =  await this.getProductById(id);
+        product.stock += quantity;
+        await this.saveProducts();
     }
 
 }

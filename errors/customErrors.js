@@ -13,8 +13,14 @@ class NotFoundError extends BaseError {
 }
 
 class NotAvailableError extends BaseError {
-    constructor(message = 'Products not Available') {
+    constructor(message = 'Not Available') {
         super('NotAvailableError', 404, message);
+    }
+}
+
+class OutOfStockError extends BaseError {
+    constructor(message = 'Out of stock') {
+        super('OutOfStockError', 400, message);
     }
 }
 
@@ -30,4 +36,4 @@ class ConflictError extends BaseError {
     }
 }
 
-export { NotFoundError, NotAvailableError, ValidationError, ConflictError };
+export { NotFoundError, NotAvailableError, ValidationError, ConflictError, OutOfStockError};
