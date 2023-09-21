@@ -1,9 +1,8 @@
-import  express  from 'express';
+import { Router } from 'express';
 import ProductManager from '../services/ProductManager.js';
 
-const router = express.Router();
+const router = Router();
 const manager = new ProductManager('./data/products.json');
-
 
 // POST - Agregar un producto
 router.post('/products', async (req, res, next) => {
@@ -62,7 +61,7 @@ router.get('/products/:pid', async (req, res, next) => {
         const products = await manager.getProductById(id);
         res.json(products);
     } catch (error) {
-       next(error);
+        next(error);
     }
 });
 

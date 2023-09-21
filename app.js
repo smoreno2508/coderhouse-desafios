@@ -1,6 +1,7 @@
 import express from 'express';
-import errorHandler from './src/middleware/errorHandler.js';
-import productRoutes from './src/routes/products.js'
+import errorHandler from './src/middleware/errorHandler.middleware.js';
+import mainRoutes from './src/routes/index.js';
+import {__dirname} from './src/utils/utils.js';
 
 const app = express();
 const PORT = 8080;
@@ -8,9 +9,10 @@ const PORT = 8080;
 export const runApp = async () => {
 
     try {
+        
         app.use(express.json());
 
-        app.use('/', productRoutes);
+        app.use('/', mainRoutes);
         
         app.use(errorHandler);
 

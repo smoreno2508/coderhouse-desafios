@@ -5,7 +5,7 @@ export const validateProduct = (title, description, price, thumbnail, code, stoc
         throw new ValidationError('All fields are mandatory!');
     }
 
-    if (price < 0 ) {
+    if (price < 0) {
         throw new ValidationError('Price must be a positive value.');
     }
 
