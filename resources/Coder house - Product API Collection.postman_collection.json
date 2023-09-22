@@ -283,7 +283,7 @@
 	"variable": [
 		{
 			"key": "URL",
-			"value": "localhost:8080",
+			"value": "localhost:8080/api",
 			"type": "string"
 		}
 	]
