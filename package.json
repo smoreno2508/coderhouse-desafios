@@ -4,8 +4,20 @@
   "description": "desafios coderhouse backend",
   "main": "app.js",
   "type": "module",
+  "imports": {
+    "#root/": "./",
+    "#models/*.js": "./src/models/*.js",
+    "#controllers/*.js": "./src/controllers/*.js",
+    "#services/*.js": "./src/services/*.js",
+    "#middlewares/*.js": "./src/middlewares/*.js",
+    "#dataDump/*.js": "./data/*.js",
+    "#errors/*.js": "./errors/*.js",
+    "#validators/*.js": "./src/validators/*.js",
+    "#utils/*.js": "./src/utils/*.js"
+  },
   "scripts": {
-    "start": "nodemon app"
+    "start": "nodemon app",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -19,5 +31,16 @@
   "homepage": "https://github.com/smoreno2508/coderhouse-desafios#readme",
   "dependencies": {
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.20",
+    "@babel/preset-env": "^7.22.20",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
   }
 }

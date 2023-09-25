@@ -1,6 +1,5 @@
-import ProductManager from '../services/ProductManager.js';
-const manager = new ProductManager('./data/products.json');
-
+import ProductServices from '#services/ProductServices.js';
+const manager = new ProductServices('./data/products.json');
 
 // POST - Agregar un producto
 const addProduct = async (req, res, next) => {

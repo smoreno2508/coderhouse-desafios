@@ -1,4 +1,4 @@
-import { ValidationError } from '../../errors/customErrors.js';
+import { ValidationError } from '#errors/customErrors.js';
 
 export const validateProduct = (title, category, description, price, thumbnail, code, stock) => {
     if (!title || !category || !description || typeof price !== 'number' || !thumbnail || !code || typeof stock !== 'number') {

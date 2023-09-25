@@ -1,9 +1,9 @@
-import { readFile, writeFile } from '../utils/fileHelper.js';
-import { validateProduct } from '../validators/productValidator.js';
-import { NotFoundError, NotAvailableError, ConflictError } from '../../errors/customErrors.js';
-import Product from '../models/Product.js';
+import { readFile, writeFile } from '#utils/fileHelper.js';
+import { validateProduct } from '#validators/productValidator.js';
+import { NotFoundError, NotAvailableError, ConflictError } from '#errors/customErrors.js';
+import Product from '#models/Product.js';
 
-export default class ProductManager {
+export default class ProductServices {
     constructor(path) {
         this.path = path;
         this.products = readFile(this.path);

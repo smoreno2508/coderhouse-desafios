@@ -1,8 +1,8 @@
-import CartService from "../services/CartServices.js";
-import ProductManager from "../services/ProductManager.js";
+import CartService from "#services/CartServices.js";
+import ProductServices from "#services/ProductServices.js";
 
-const productManager = new ProductManager('./data/products.json');
-const cartService = new CartService('./data/cart.json', productManager);
+const productService = new ProductServices('./data/products.json');
+const cartService = new CartService('./data/cart.json', productService);
 
 const addCart = async (req, res, next) => {
     try {
