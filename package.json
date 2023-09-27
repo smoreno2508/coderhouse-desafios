@@ -9,7 +9,7 @@
     "#models/*.js": "./src/models/*.js",
     "#controllers/*.js": "./src/controllers/*.js",
     "#services/*.js": "./src/services/*.js",
-    "#middlewares/*.js": "./src/middlewares/*.js",
+    "#middlewares/*.js": "./src/middleware/*.js",
     "#dataDump/*.js": "./data/*.js",
     "#errors/*.js": "./errors/*.js",
     "#validators/*.js": "./src/validators/*.js",
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "nodemon app",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "repository": {
     "type": "git",
