@@ -1,9 +1,14 @@
+import { errorResponse } from "#utils/utils.js";
 const errorHandler = (err, req, res, next) => {
-    if (err.statusCode) {
-        res.status(err.statusCode).json({ error: err.message });
-    } else {
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
+
+    err = err || {};
+    
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
+
+    errorResponse(res, message, statusCode);
+   
 };
 
 export default errorHandler;
+

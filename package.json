@@ -4,6 +4,20 @@
   "description": "desafios coderhouse backend",
   "main": "app.js",
   "type": "module",
+  "imports": {
+    "#root/": "./",
+    "#models/*.js": "./src/models/*.js",
+    "#controllers/*.js": "./src/controllers/*.js",
+    "#services/*.js": "./src/services/*.js",
+    "#middlewares/*.js": "./src/middleware/*.js",
+    "#routes/*.js": "./src/routes/*.js",
+    "#sockets/*.js": "./src/sockets/*.js",
+    "#dataDump/*.js": "./data/*.js",
+    "#errors/*.js": "./errors/*.js",
+    "#validators/*.js": "./src/validators/*.js",
+    "#utils/*.js": "./src/utils/*.js",
+    "#config/*.js": "./src/config/*.js"
+  },
   "scripts": {
     "start": "nodemon app"
   },
@@ -18,6 +32,9 @@
   },
   "homepage": "https://github.com/smoreno2508/coderhouse-desafios#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "socket.io": "^4.7.2",
+    "sweetalert2": "^11.7.31"
   }
 }

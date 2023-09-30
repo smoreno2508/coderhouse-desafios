@@ -1,14 +1,12 @@
-import CartService from "../services/CartServices.js";
-import ProductManager from "../services/ProductManager.js";
 
-const productManager = new ProductManager('./data/products.json');
-const cartService = new CartService('./data/cart.json', productManager);
+import { cartService } from "#services/index.js";
+import { successResponse } from "#utils/utils.js";
 
 const addCart = async (req, res, next) => {
     try {
         const { products } = req.body;
-        await cartService.addCart(products);
-        res.status(201).json({ message: "Cart created successfully!" });
+        const cart = await cartService.addCart(products);
+        successResponse(res, "Cart created successfully.", cart, 201);
     } catch (error) {
         next(error);
     }
@@ -18,8 +16,8 @@ const addProductToCart = async (req, res, next) => {
     try {
         const cid = parseInt(req.params.cid, 10);
         const pid = parseInt(req.params.pid, 10);
-        await cartService.addProductToCart(cid, pid);
-        res.status(200).json({ message: "Product added successfully!" });
+        const cart = await cartService.addProductToCart(cid, pid);
+        successResponse(res, "Product added to cart successfully.", { cart });
     } catch (error) {
         next(error);
     }
@@ -29,7 +27,7 @@ const getCartById = async (req, res, next) => {
     try {
         const id = parseInt(req.params.cid, 10);
         const cart = await cartService.getCartById(id);
-        res.json(cart);
+        successResponse(res, "Cart retrieved successfully.", { cart });
     } catch (error) {
         next(error);
     }
@@ -38,7 +36,7 @@ const getCartById = async (req, res, next) => {
 const getCarts = async (req, res, next) => {
     try {
         const carts = await cartService.getCarts();
-        res.json(carts);
+        successResponse(res, "Carts retrieved successfully.", { carts });
     } catch (error) {
         next(error);
     }
@@ -48,17 +46,27 @@ const clearCart = async (req, res, next) => {
     try {
         const cid = parseInt(req.params.cid, 10);
         await cartService.clearCart(cid);
-        res.status(200).json({ message: 'Cart cleared successfully!'})
+        successResponse(res, "Cart cleared successfully.");
     } catch (error) {
         next(error);
     }
 }
 
+const deleteCart = async (req, res, next) => {
+    try {
+        const cid = parseInt(req.params.cid, 10);
+        await cartService.deleteCartById(cid);
+        successResponse(res, "Cart deleted successfully.");
+    } catch (error) {
+        next(error);
+    }
+}
 
 export {
     getCarts,
     getCartById,
     addCart,
     addProductToCart,
-    clearCart
+    clearCart,
+    deleteCart
 }

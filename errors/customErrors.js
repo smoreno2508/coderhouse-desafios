@@ -30,10 +30,16 @@ class ValidationError extends BaseError {
     }
 }
 
+class BadRequestError extends BaseError {
+    constructor(message = 'Bad request') {
+        super(BadRequestError, 400, message);
+    }
+}
+
 class ConflictError extends BaseError {
     constructor(message = 'Conflict detected.') {
         super('ConflictError', 409, message);
     }
 }
 
-export { NotFoundError, NotAvailableError, ValidationError, ConflictError, OutOfStockError};
+export { NotFoundError, NotAvailableError, ValidationError, ConflictError, OutOfStockError, BadRequestError };

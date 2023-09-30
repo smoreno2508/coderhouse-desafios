@@ -1,68 +1,59 @@
-import ProductManager from '../services/ProductManager.js';
-const manager = new ProductManager('./data/products.json');
+import { productService } from '#services/index.js';
+import { successResponse } from '#utils/utils.js';
 
-
-// POST - Agregar un producto
+// POST - Add a product
 const addProduct = async (req, res, next) => {
     try {
         const { title, status, category, description, price, thumbnail, code, stock } = req.body;
-        await manager.addProduct(title, status, category, description, price, thumbnail, code, stock);
-        res.status(201).json({ message: "Product added successfully!" });
+        const productAdded = await productService.addProduct(title, status, category, description, price, thumbnail, code, stock);
+        successResponse(res, "Product added successfully.", { productAdded }, 201);
     } catch (error) {
         next(error);
     }
 };
 
-// PUT - Actualizar un producto por ID
+// PUT - Update a product by ID
 const updateProduct = async (req, res, next) => {
     try {
         const id = parseInt(req.params.id, 10);
-        await manager.updateProductById(id, req.body);
-        res.json({ message: `Product with ID ${id} updated successfully!` });
+        await productService.updateProductById(id, req.body);
+        successResponse(res, `Product with ID ${id} updated successfully.`);
     } catch (error) {
         next(error);
     }
 }
 
-// DELETE - Eliminar un producto por ID
+// DELETE - Delete a product by ID
 const deleteProduct = async (req, res, next) => {
     try {
         const id = parseInt(req.params.id, 10);
-        await manager.deleteProductById(id);
-        res.json({ message: `Product with ID ${id} deleted successfully!` });
+        await productService.deleteProductById(id);
+        successResponse(res, `Product with ID ${id} deleted successfully.`);
     } catch (error) {
         next(error);
     }
 }
 
-//GET - Obtener todos los productos - limitarlos si viene con ?limit=number
+// GET - Retrieve all products - limited if ?limit=number is specified
 const getProducts = async (req, res, next) => {
     try {
-        const products = await manager.getProducts();
-        //si se especifica un limite, aplicamos los limites al resultado
-        if (req.query.limit) {
-            const limit = parseInt(req.query.limit, 10);
-            return res.json(products.slice(0, limit));
-        }
-        // si no hay limite, devolvemos todos los productos
-        res.json(products);
+        const products = await productService.getProducts(req.query.limit);
+        successResponse(res, "Products retrieved successfully.", { products });
     } catch (error) {
         next(error)
     }
 }
 
-//GET - Obtener productos por id 
-
+// GET - Retrieve a product by ID
 const getProductById = async (req, res, next) => {
     try {
         const id = parseInt(req.params.pid, 10);
-        const products = await manager.getProductById(id);
-        res.json(products);
+        const product = await productService.getProductById(id);
+        successResponse(res, `Product with ID ${id} retrieved successfully.`, { product });
     } catch (error) {
         next(error);
     }
 }
-
 
 export {
     addProduct,
