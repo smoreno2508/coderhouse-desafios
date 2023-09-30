@@ -52,16 +52,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Macbook Pro M2\",\n    \"price\": 2600\n}"
+							"raw": "{\n    \"title\": \"Samsung Galaxy S23 Ultra 256gb 12ram Black\",\n    \"price\": 1800\n}"
 						},
 						"url": {
-							"raw": "{{URL}}/products/1",
+							"raw": "{{URL}}/products/2",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"products",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -73,13 +73,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/products/5",
+							"raw": "{{URL}}/products/7",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"products",
-								"5"
+								"7"
 							]
 						}
 					},
@@ -108,7 +108,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/products?limit=3",
+							"raw": "{{URL}}/products?limit=2",
 							"host": [
 								"{{URL}}"
 							],
@@ -118,7 +118,7 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "3"
+									"value": "2"
 								}
 							]
 						}
@@ -131,13 +131,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/products/1",
+							"raw": "{{URL}}/products/7",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"products",
-								"1"
+								"7"
 							]
 						}
 					},
@@ -252,6 +252,24 @@
 								"carts",
 								"1",
 								"clear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/carts/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"carts",
+								"1"
 							]
 						}
 					},
