@@ -19,6 +19,7 @@
     "#config/*.js": "./src/config/*.js"
   },
   "scripts": {
+    "dev": "nodemon app",
     "start": "nodemon app"
   },
   "repository": {
@@ -32,8 +33,11 @@
   },
   "homepage": "https://github.com/smoreno2508/coderhouse-desafios#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
+    "mongoose": "^7.6.3",
     "socket.io": "^4.7.2",
     "sweetalert2": "^11.7.31"
   }

@@ -1,17 +1,23 @@
 import express from 'express';
-import { Server as SocketIOServer } from "socket.io";
+import { config } from 'dotenv';
+import cors from 'cors';
+import { Server as SocketIOServer } from 'socket.io';
 import { engine } from 'express-handlebars';
 import errorHandler from '#middlewares/errorHandler.middleware.js';
 import mainRoutes from '#routes/index.js';
-import { productService } from '#services/index.js';
+import dbConnection from './Database.js';
 import { __dirname } from '#utils/utils.js';
 
 import SocketManager from '#sockets/SocketManager.js';
 
+config();
 class Server {
-    constructor() {
+    constructor(productService, messageService) {
         this.app = express();
+        this.productService = productService;
+        this.messageService = messageService;
         this.config();
+        this.connectDB();
         this.middlewares();
         this.handlebars();
         this.routes();
@@ -19,10 +25,15 @@ class Server {
     }
 
     config(){
-        this.PORT = 8080;
+        this.PORT = process.env.PORT;
+    }
+    
+    async connectDB(){
+        await dbConnection();
     }
 
     middlewares(){
+        this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.static(__dirname + "/public"));
@@ -48,7 +59,7 @@ class Server {
         });
 
         this.io = new SocketIOServer(this.httpServer);
-        new SocketManager(this.io, productService);
+        new SocketManager(this.io, this.productService, this.messageService);
     }
 }
 

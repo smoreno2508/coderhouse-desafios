@@ -1,8 +1,10 @@
 import ProductService from "#services/ProductService.js";
 import CartServices from "#services/CartServices.js"
+import MessageService from "#services/MessageService.js";
 
 
-const productService = new ProductService('./data/products.json');
-const cartService = new CartServices('./data/cart.json', productService);
+const productService = new ProductService();
+const cartService = new CartServices(productService);
+const messageService = new MessageService();
 
-export { productService, cartService };
+export { productService, cartService, messageService };

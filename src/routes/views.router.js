@@ -6,11 +6,17 @@ const router = Router();
 router.get('/', async (req, res) => {
     const limit = req.query.limit ? parseInt(req.query.limit, 10) : null;
     const productList = await productService.getProducts(limit);
-    res.render('home', { productList });
+
+    const plainProductList = productList.map(product => product.toObject());
+    res.render('home', { productList: plainProductList });
 });
 
 router.get("/realtimeproducts",async(req,res)=>{
     res.render("realtimeproducts")
+ });
+
+ router.get("/chat", async(req,res)=>{
+    res.render("chat")
  });
 
 

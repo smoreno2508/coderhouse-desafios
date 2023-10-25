@@ -14,9 +14,9 @@ const addCart = async (req, res, next) => {
 
 const addProductToCart = async (req, res, next) => {
     try {
-        const cid = parseInt(req.params.cid, 10);
-        const pid = parseInt(req.params.pid, 10);
+        const { cid, pid } = req.params;
         const cart = await cartService.addProductToCart(cid, pid);
+        
         successResponse(res, "Product added to cart successfully.", { cart });
     } catch (error) {
         next(error);
@@ -25,8 +25,8 @@ const addProductToCart = async (req, res, next) => {
 
 const getCartById = async (req, res, next) => {
     try {
-        const id = parseInt(req.params.cid, 10);
-        const cart = await cartService.getCartById(id);
+        const { cid } = req.params;
+        const cart = await cartService.getCartById(cid);
         successResponse(res, "Cart retrieved successfully.", { cart });
     } catch (error) {
         next(error);
@@ -44,7 +44,7 @@ const getCarts = async (req, res, next) => {
 
 const clearCart = async (req, res, next) => {
     try {
-        const cid = parseInt(req.params.cid, 10);
+        const { cid } = req.params;
         await cartService.clearCart(cid);
         successResponse(res, "Cart cleared successfully.");
     } catch (error) {
@@ -54,7 +54,7 @@ const clearCart = async (req, res, next) => {
 
 const deleteCart = async (req, res, next) => {
     try {
-        const cid = parseInt(req.params.cid, 10);
+        const { cid } = req.params;
         await cartService.deleteCartById(cid);
         successResponse(res, "Cart deleted successfully.");
     } catch (error) {

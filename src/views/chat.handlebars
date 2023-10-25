@@ -1,0 +1,29 @@
+<!-- Botón para abrir el chat -->
+<button class="chat-button" onclick="toggleChat()"><span class="material-symbols-rounded">mode_comment</span></button>
+
+<div class="chat-container">
+    <!-- Encabezado -->
+    <div class="chat-header">
+        Live Chat
+        <span class="close-chat" onclick="toggleChat()"><span class="material-symbols-outlined">close</span></span>
+    </div>
+    <!-- Formulario de entrada de correo electrónico -->
+    <div class="email-entry p-3">
+        <input type="email" id="email" placeholder="Introduce tu correo" class="form-control mb-2">
+        <button id="startChat" class="btn btn-primary w-100">Iniciar Chat</button>
+    </div>
+    <!-- Contenedor de mensajes (oculto por defecto) -->
+    <div class="messages p-3" style="display:none;">
+        <ul id="messageList"></ul>
+    </div>
+    <!-- Formulario de mensaje (oculto por defecto) -->
+    <div class="message-form p-3" style="display:none;">
+        <input type="text" id="messageInput" placeholder="Escribe tu mensaje" class="form-control mb-2">
+        <button id="sendMessage" class="btn btn-primary w-100">Enviar</button>
+    </div>
+</div>
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script>

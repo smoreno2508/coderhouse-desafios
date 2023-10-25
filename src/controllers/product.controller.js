@@ -15,7 +15,7 @@ const addProduct = async (req, res, next) => {
 // PUT - Update a product by ID
 const updateProduct = async (req, res, next) => {
     try {
-        const id = parseInt(req.params.id, 10);
+        const { id } = req.params;
         await productService.updateProductById(id, req.body);
         successResponse(res, `Product with ID ${id} updated successfully.`);
     } catch (error) {
@@ -26,7 +26,7 @@ const updateProduct = async (req, res, next) => {
 // DELETE - Delete a product by ID
 const deleteProduct = async (req, res, next) => {
     try {
-        const id = parseInt(req.params.id, 10);
+        const { id } = req.params;
         await productService.deleteProductById(id);
         successResponse(res, `Product with ID ${id} deleted successfully.`);
     } catch (error) {
@@ -47,9 +47,9 @@ const getProducts = async (req, res, next) => {
 // GET - Retrieve a product by ID
 const getProductById = async (req, res, next) => {
     try {
-        const id = parseInt(req.params.pid, 10);
-        const product = await productService.getProductById(id);
-        successResponse(res, `Product with ID ${id} retrieved successfully.`, { product });
+        const { pid } = req.params;
+        const product = await productService.getProductById(pid);
+        successResponse(res, `Product with ID ${pid} retrieved successfully.`, { product });
     } catch (error) {
         next(error);
     }

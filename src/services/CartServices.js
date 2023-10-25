@@ -1,52 +1,29 @@
-import { readFile, writeFile } from '#utils/fileHelper.js';
 import { NotFoundError, NotAvailableError, OutOfStockError, BadRequestError } from '#errors/customErrors.js';
-import Cart from "#models/Cart.js";
+import { Cart } from '#models/Cart.js'
 
 export default class CartService {
-    constructor(path, productService) {
-        this.path = path;
+
+    constructor(productService){
         this.productService = productService;
-        this.cart = [];
-        this.iniatilizeCarts();
-    }
-
-    async iniatilizeCarts() {
-        this.cart = await readFile(this.path);
-    }
-
-    async saveCart() {
-        await writeFile(this.path, this.cart);
-    }
-
-    findCartIndexById(id) {
-        return this.cart.findIndex(cart => cart.id === id);
     }
 
     async addCart() {
-
-        const id = (!this.cart.length) ? 1 : this.cart[this.cart.length - 1].id + 1;
-        const newCart = new Cart(id);
-        
-        this.cart.push(newCart);
-        await this.saveCart();
-
+        const newCart = new Cart();
+        await newCart.save();
         return newCart;
     }
 
     async getCarts() {
+        
+        const carts = await Cart.find();
 
-        if (this.cart.length === 0) {
-            throw new NotAvailableError('No carts available.');
-        }
-
-        return this.cart;
+        if (carts.length === 0) throw new NotAvailableError('No carts available.');
+    
+        return carts;
     }
 
     async getCartById(id) {
-
-        if (isNaN(id)) throw new BadRequestError("Cart ID must be a number.");
-
-        const cart = this.cart.find(cart => cart.id === id);
+        const cart = await Cart.findById(id);
         if (!cart) {
             throw new NotFoundError(`Cart with ID ${id} not found!`);
         }
@@ -54,18 +31,14 @@ export default class CartService {
     }
 
     async addProductToCart(cartId, productId) {
-
-        if (isNaN(cartId) || isNaN(productId)) throw new BadRequestError('ID must be a number.');
-
-        const product = await this.productService.getProductById(productId);
+        
+        const product = await this.productService.getProductById(productId); 
         const cart = await this.getCartById(cartId);
 
-        if (product.stock === 0) {
-            throw new OutOfStockError(`Product with ID ${productId} is out of stock. Cannot add to cart.`)
-        }
+        if (product.stock === 0) throw new OutOfStockError(`Product with ID ${productId} is out of stock. Cannot add to cart.`);
 
-        const productInCart = cart.products.find(p => p.product === productId);
-
+        const productInCart = cart.products.find(p => p.product._id.equals(productId));
+       
         if (productInCart) {
             productInCart.quantity++;
         } else {
@@ -73,35 +46,19 @@ export default class CartService {
         }
 
         await this.productService.updateProductStock(productId, -1);
-        await this.saveCart();
-
+        await cart.save();
         return cart;
     }
 
     async deleteCartById(id) {
-
-        if (isNaN(id)) throw new BadRequestError("Cart ID must be a number.");
-
-        const index = this.findCartIndexById(id);
-
-        if (index === -1) {
-            throw new NotFoundError(`Cart with ID ${id} does not exist!`);
-        }
-        this.cart.splice(index, 1);
-        await this.saveCart();
+        const cart = await Cart.findByIdAndRemove(id);
+        if (!cart) throw new NotFoundError(`Cart with ID ${id} does not exist!`);
     }
 
-    async clearCart(cid) {
-
-        if (isNaN(cid)) throw new BadRequestError("Cart ID must be a number.");
-
-        const cart = await this.getCartById(cid);
-
-        if (!cart) {
-            throw new NotFoundError(`Cart with ID ${cid} does not exist!`)
-        }
+    async clearCart(cartId) {
+        const cart = await this.getCartById(cartId);
         cart.products = [];
-        await this.saveCart();
+        await cart.save();
     }
 
 }
