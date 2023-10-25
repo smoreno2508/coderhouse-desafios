@@ -258,13 +258,13 @@ a:hover {
     margin: 10px;
     padding: 5px;
     border-radius: 5px;
-    background-color: #f1f1f1; /* Este es un color de fondo general, puedes cambiarlo o incluso asignarlo dinámicamente como hicimos anteriormente */
+    background-color: #f1f1f1;
 }
 
 .message-icon {
-    font-size: 24px; /* o el tamaño que desees */
-    margin-right: 8px; /* espacio entre el ícono y el mensaje */
-    vertical-align: middle; /* alinea verticalmente el ícono con el mensaje */
+    font-size: 24px; 
+    margin-right: 8px; 
+    vertical-align: middle; 
 }
 
 
