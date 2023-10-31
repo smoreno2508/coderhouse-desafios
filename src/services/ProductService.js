@@ -42,16 +42,28 @@ export default class ProductService {
 
         const result = await Product.updateOne({ _id: id }, updates);
         if (result.matchedCount === 0) throw new NotFoundError(`Product with ID ${id} not found for update.`)
-        
+
     }
 
-    async getProducts(limit) {
+    async getProducts({ limit = 12, page = 1, sort = {}, query = {} } = {}) {
 
-        const products = await Product.find().limit(limit);
-
-        if (!products.length) {
-            throw new NotAvailableError('No products available.');
+        const sortOptions = {
+            "asc": { price: 1 },
+            "desc": { price: -1 },
+            "default": { createdAt: -1}
         }
+
+        const sortOrder = sortOptions[sort] || sortOptions["default"];
+        
+        const options = {
+            page: page,
+            limit: limit,
+            sort: sortOrder
+        } 
+
+        const products = await Product.paginate(query, options);
+
+        if (!products.docs.length) throw new NotAvailableError('No products available.');
 
         return products;
     }
@@ -71,8 +83,11 @@ export default class ProductService {
 
     async updateProductStock(id, quantity) {
         const product = await this.getProductById(id);
+        if (!product) throw new NotFoundError(`Product with ID ${id} not found!`);
+        if (quantity < 0 && product.stock < Math.abs(quantity)) throw new BadRequestError(`Cannot reduce stock by ${Math.abs(quantity)} as there are only ${product.stock} items in stock.`);
         product.stock += quantity;
         await product.save();
     }
+
 
 }

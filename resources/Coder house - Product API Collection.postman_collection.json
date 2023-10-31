@@ -52,16 +52,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Samsung Galaxy S23 Ultra 256gb 12ram Black\",\n    \"price\": 1800\n}"
+							"raw": "{\n    \"stock\": 100\n}"
 						},
 						"url": {
-							"raw": "{{URL}}/products/2",
+							"raw": "{{URL}}/products/653ef451975f05104e024b83",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"products",
-								"2"
+								"653ef451975f05104e024b83"
 							]
 						}
 					},
@@ -73,13 +73,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/products/7",
+							"raw": "{{URL}}/products/6535da9d663aab32db7ecde3",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"products",
-								"7"
+								"6535da9d663aab32db7ecde3"
 							]
 						}
 					},
@@ -91,24 +91,38 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/products",
+							"raw": "{{URL}}/products?page=1&limit=20&sort=asc",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "sort",
+									"value": "asc"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get Products with Limit",
+					"name": "Get Products (Limit, query, etc)",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/products?limit=2",
+							"raw": "{{URL}}/products?limit=12&sort=desc&status=false",
 							"host": [
 								"{{URL}}"
 							],
@@ -118,7 +132,15 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "2"
+									"value": "12"
+								},
+								{
+									"key": "sort",
+									"value": "desc"
+								},
+								{
+									"key": "status",
+									"value": "false"
 								}
 							]
 						}
@@ -131,13 +153,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/products/7",
+							"raw": "{{URL}}/products/653ef451975f05104e024b83",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"products",
-								"7"
+								"653ef451975f05104e024b83"
 							]
 						}
 					},
@@ -189,15 +211,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/carts/1/products/1",
+							"raw": "{{URL}}/carts/653ef46d65f9287b17b2ce43/products/653ef451975f05104e024b83",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"carts",
-								"1",
+								"653ef46d65f9287b17b2ce43",
 								"products",
-								"1"
+								"653ef451975f05104e024b83"
 							]
 						}
 					},
@@ -226,13 +248,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/carts/1",
+							"raw": "{{URL}}/carts/654040de6cb295c4aca02772",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"carts",
-								"1"
+								"654040de6cb295c4aca02772"
 							]
 						}
 					},
@@ -244,13 +266,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/carts/1/clear",
+							"raw": "{{URL}}/carts/6537022a811edad63be6e216/clear",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"carts",
-								"1",
+								"6537022a811edad63be6e216",
 								"clear"
 							]
 						}
@@ -263,13 +285,89 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/carts/1",
+							"raw": "{{URL}}/carts/653ef3b765f9287b17b2ce39",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"carts",
-								"1"
+								"653ef3b765f9287b17b2ce39"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update quantity",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/carts/653c1bc0112e285033cc7ee6/products/6535ccde663aab32db7ecdd8",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"carts",
+								"653c1bc0112e285033cc7ee6",
+								"products",
+								"6535ccde663aab32db7ecdd8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product from cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/carts/654040de6cb295c4aca02772/products/653ef451975f05104e024b7d",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"carts",
+								"654040de6cb295c4aca02772",
+								"products",
+								"653ef451975f05104e024b7d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update cart",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"product\": \"653ef451975f05104e024b83\",\r\n        \"quantity\": 11\r\n    }\r\n]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/carts/653ef46d65f9287b17b2ce43",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"carts",
+								"653ef46d65f9287b17b2ce43"
 							]
 						}
 					},

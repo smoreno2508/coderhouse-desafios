@@ -23,6 +23,40 @@ const addProductToCart = async (req, res, next) => {
     }
 }
 
+const updateCart = async (req, res, next) => {
+    try{
+        console.log(req.params);
+        const { cid } = req.params;
+        const products  = req.body;
+        const cartUpdated = await cartService.updateCart(cid, products);
+        successResponse(res, "Cart updated successfully.", { cartUpdated });
+    }catch(error){
+        next(error);
+    }
+}
+
+
+const updateQuantity = async (req, res, next) => {
+    try {
+        const { cid, pid } = req.params;
+        const { quantity } = req.body;
+        const cart = await cartService.updateQuantity(cid, pid, quantity);
+        successResponse(res, "Cart updated successfully.", { cart });
+    } catch (error) {
+        next(error);
+    }
+}
+
+const deleteProductFromCart = async (req, res, next) => {
+    try {
+        const { cid, pid } = req.params;
+        const cart = await cartService.removeProductFromCart(cid, pid);
+        successResponse(res, "Product deleted from cart successfully.", { cart });
+    } catch (error) {
+        next(error);
+    }
+}
+
 const getCartById = async (req, res, next) => {
     try {
         const { cid } = req.params;
@@ -68,5 +102,8 @@ export {
     addCart,
     addProductToCart,
     clearCart,
-    deleteCart
+    deleteCart,
+    updateQuantity, 
+    deleteProductFromCart,
+    updateCart
 }

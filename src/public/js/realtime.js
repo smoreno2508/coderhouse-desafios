@@ -5,7 +5,7 @@ function updateProductList(products) {
     let productsDiv = document.getElementById("realtime-products");
     let productHTML = '';
 
-    products.forEach(product => {
+    products.docs.forEach(product => {
         productHTML += `
         <div class="col-md-6 col-lg-4 col-xl-3">
             <div id="product-${product._id}" class="single-product">
@@ -58,7 +58,7 @@ socket.on("productsUpdated", (products) => {
     document.getElementById("productForm").reset();
 });
 
-socket.on("productAddedNotification", (message) => {
+socket.on("productNotification", (message) => {
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',

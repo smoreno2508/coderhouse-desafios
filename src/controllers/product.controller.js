@@ -37,7 +37,15 @@ const deleteProduct = async (req, res, next) => {
 // GET - Retrieve all products - limited if ?limit=number is specified
 const getProducts = async (req, res, next) => {
     try {
-        const products = await productService.getProducts(req.query.limit);
+        const { page, limit, sort,...query } = req.query;
+
+        const products = await productService.getProducts({
+            page: parseInt(page, 10),
+            limit: parseInt(limit, 10),
+            sort,
+            query
+        });
+
         successResponse(res, "Products retrieved successfully.", { products });
     } catch (error) {
         next(error)

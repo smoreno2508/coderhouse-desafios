@@ -39,8 +39,14 @@ class Server {
         this.app.use(express.static(__dirname + "/public"));
     }
 
+
     handlebars(){
-        this.app.engine('handlebars', engine());
+        this.app.engine('handlebars', engine({
+            helpers: {
+                eq: (v1, v2) => v1 == v2 ,
+                multiply: (v1, v2) => v1 * v2,
+            }
+        }));
         this.app.set('views', __dirname + '/views');
         this.app.set('view engine', 'handlebars');
     }
