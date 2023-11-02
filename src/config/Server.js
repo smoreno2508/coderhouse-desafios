@@ -45,8 +45,11 @@ class Server {
             helpers: {
                 eq: (v1, v2) => v1 == v2 ,
                 multiply: (v1, v2) => v1 * v2,
-            }
+                calculateTotal: (products) => products.reduce((acc, product) => acc + (product.product.price * product.quantity), 0)
+            },
+            partialsDir: __dirname + '/views/partials',
         }));
+        
         this.app.set('views', __dirname + '/views');
         this.app.set('view engine', 'handlebars');
     }

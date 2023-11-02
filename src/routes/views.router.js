@@ -5,57 +5,53 @@ const router = Router();
 
 router.get('/', async (req, res, next) => {
     try {
-
         const { page, limit, sort, ...query } = req.query;
-
 
         const productList = await productService.getProducts({
             page: parseInt(page) || 1,
             limit: parseInt(limit) || 12,
-            sort: sort || { createdAt: -1 }, // ordenamiento por defecto
-            query: query || {} // búsqueda por defecto
+            sort,
+            query
         });
 
-        let pagination = {
-            page: productList.page,
-            totalPages: productList.totalPages,
-            hasNextPage: productList.hasNextPage,
-            nextPage: productList.nextPage,
-            hasPrevPage: productList.hasPrevPage,
-            prevPage: productList.prevPage,
-            pages: [] // Array de números de página para iterar en la vista
+        const pagination = {
+            ...productList,
+            pages: Array.from({ length: productList.totalPages }, (_, i) => i + 1)
         };
+       
+        const categories = await productService.getUniqueCategories();
         
-        for (let i = 1; i <= productList.totalPages; i++) {
-            pagination.pages.push(i);
-        }
-
-        const productObject = productList.docs.map(doc => doc.toObject());
-        
-        res.render('home', { productList: productObject, pagination: pagination, sort:sort });
+        res.render('home', { 
+            productList: productList.docs.map(doc => doc.toObject()), 
+            ...pagination, 
+            sort, 
+            currentQuery: query,
+            categories
+        });
         
     } catch (error) {
         next(error);
     }
-
 });
+
+
 
 
 router.get("/cart/:cid", async (req, res, next) => {
     try {
         const { cid } = req.params;
         const cart = await cartService.getCartById(cid);
-        const cartObject = cart.toObject();
-        const countItems = cart.products.length;
-        const total = cart.products.reduce((accumulator, product) => {
-            return accumulator + (product.product.price * product.quantity);
-        }, 0);
      
-        res.render("cart", { cart: cartObject, countItems: countItems, total: total });
+        res.render("cart", { 
+            cart: cart.toObject(), 
+            countItems: cart.products.length, 
+        });
+        
     } catch (error) {
         next(error);
     }
 });
+
 
 
 router.get("/product/:pid", async (req, res, next) => {

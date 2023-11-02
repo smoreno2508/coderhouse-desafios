@@ -1,0 +1,22 @@
+header{
+    position: relative;
+}
+
+
+.cart-icon {
+    font-size: 1.5em;
+    position: absolute;
+    top: 5px; /* Puedes ajustar este valor según necesites */
+    right: 20px; /* Puedes ajustar este valor según necesites */
+}
+
+.cart-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0.2em 0.5em;
+    font-size: 0.5em;
+}

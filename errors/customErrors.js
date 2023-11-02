@@ -32,7 +32,7 @@ class ValidationError extends BaseError {
 
 class BadRequestError extends BaseError {
     constructor(message = 'Bad request') {
-        super(BadRequestError, 400, message);
+        super('BadRequestError', 400, message);
     }
 }
 

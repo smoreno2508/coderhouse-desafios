@@ -37,13 +37,16 @@ const deleteProduct = async (req, res, next) => {
 // GET - Retrieve all products - limited if ?limit=number is specified
 const getProducts = async (req, res, next) => {
     try {
-        const { page, limit, sort,...query } = req.query;
+        const { page, limit, sort, ...otherQuery } = req.query;
+
+        const parsedPage = page ? parseInt(page, 10) : undefined;
+        const parsedLimit = limit ? parseInt(limit, 10) : undefined;
 
         const products = await productService.getProducts({
-            page: parseInt(page, 10),
-            limit: parseInt(limit, 10),
+            page: parsedPage,
+            limit: parsedLimit,
             sort,
-            query
+            query: otherQuery // Cambiando 'query' a 'otherQuery'
         });
 
         successResponse(res, "Products retrieved successfully.", { products });
@@ -51,6 +54,7 @@ const getProducts = async (req, res, next) => {
         next(error)
     }
 }
+
 
 // GET - Retrieve a product by ID
 const getProductById = async (req, res, next) => {

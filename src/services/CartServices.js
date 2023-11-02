@@ -111,6 +111,7 @@ export default class CartService {
         await this.productService.updateProductStock(productId, -1);
         await cart.save();
         return cart;
+        
     }
 
     async removeProductFromCart(cartId, productId) {
