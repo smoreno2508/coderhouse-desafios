@@ -21,13 +21,19 @@ router.get('/', async (req, res, next) => {
        
         const categories = await productService.getUniqueCategories();
         
-        res.render('home', { 
-            productList: productList.docs.map(doc => doc.toObject()), 
-            ...pagination, 
-            sort, 
-            currentQuery: query,
-            categories
-        });
+        if(req.session.user){
+            res.render('home', { 
+                productList: productList.docs.map(doc => doc.toObject()), 
+                ...pagination, 
+                sort, 
+                currentQuery: query,
+                categories,
+                user: req.session.user
+            });
+        } else {
+            res.redirect("/login");
+        }
+        
         
     } catch (error) {
         next(error);
@@ -72,5 +78,16 @@ router.get("/chat", async (req, res) => {
     res.render("chat")
 });
 
+router.get("/login", async (req, res) => {
+    res.render("login");
+})
+
+router.get("/register", async (req, res) => {
+    res.render("register");
+});
+
+router.get("/noAuthorized", async (req, res) => {
+    res.render("noAuthorized");
+});
 
 export default router;

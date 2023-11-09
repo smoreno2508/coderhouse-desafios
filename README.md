@@ -7,4 +7,14 @@
 2. Para iniciar la app debemos correr el comando npm start
 3. La aplicacion corre bajo el puerto 8080
 4. En la carpeta resources/ se dejo una coleccion de postman que viene configurada con ejemplos de todas las peticiones post, put, get y delete
+
+```
+
+Se debe agregar el archivo .env, esta es la forma principal solo falta agrega la conexion a mongo:
+
+```
+    PORT=8080
+    MONGODB_ATLAS=conexion_de_mongo
+    COOKIE_SECRET=SecretCookie
+    SESSION_SECRET=SecretSession
 ```

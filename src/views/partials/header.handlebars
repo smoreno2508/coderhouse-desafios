@@ -1,3 +1,4 @@
+{{#if user}}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" href="/">Ecommerce - Coder</a>
@@ -7,13 +8,22 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/chat">Chat</a>
+        <!-- Otros elementos del nav -->
+
+        <!-- Menú desplegable para usuario -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user"></i> <span>{{user.email}}</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="/api/logout">Cerrar sesión</a></li>
+          </ul>
         </li>
 
+        <!-- Icono del carro -->
         <li class="nav-item cartIcon">
           <div class="cart-icon">
-            <a class="nav-link" id="cartLink" href="#"><i class="fas fa-shopping-cart" ></i></a>
+            <a class="nav-link" id="cartLink" href="/cart"><i class="fas fa-shopping-cart"></i></a>
             {{#if countItems}}
             <span class="cart-count">{{countItems}}</span>
             {{/if}}
@@ -24,3 +34,4 @@
     </div>
   </div>
 </nav>
+{{/if}}

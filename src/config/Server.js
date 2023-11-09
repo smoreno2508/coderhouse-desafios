@@ -3,6 +3,10 @@ import { config } from 'dotenv';
 import cors from 'cors';
 import { Server as SocketIOServer } from 'socket.io';
 import { engine } from 'express-handlebars';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+
 import errorHandler from '#middlewares/errorHandler.middleware.js';
 import mainRoutes from '#routes/index.js';
 import dbConnection from './Database.js';
@@ -37,6 +41,14 @@ class Server {
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.static(__dirname + "/public"));
+        this.app.use(cookieParser(process.env.COOKIE_SECRET));
+        this.app.use(session({
+            store: new MongoStore({ mongoUrl: process.env.MONGODB_ATLAS}),
+            secret: process.env.SESSION_SECRET,
+            cookie: { maxAge: 120000 },
+            resave: false,
+            saveUninitialized: false,
+        }))
     }
 
 

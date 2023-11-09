@@ -6,8 +6,8 @@ header{
 .cart-icon {
     font-size: 1.5em;
     position: absolute;
-    top: 5px; /* Puedes ajustar este valor según necesites */
-    right: 20px; /* Puedes ajustar este valor según necesites */
+    top: 5px; 
+    right: 100px;
 }
 
 .cart-count {
