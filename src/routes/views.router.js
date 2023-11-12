@@ -20,15 +20,17 @@ router.get('/', async (req, res, next) => {
         };
        
         const categories = await productService.getUniqueCategories();
+
         
-        if(req.session.user){
+        if(req.isAuthenticated()){
+            
             res.render('home', { 
                 productList: productList.docs.map(doc => doc.toObject()), 
                 ...pagination, 
                 sort, 
                 currentQuery: query,
                 categories,
-                user: req.session.user
+                user: req.user
             });
         } else {
             res.redirect("/login");
@@ -79,7 +81,8 @@ router.get("/chat", async (req, res) => {
 });
 
 router.get("/login", async (req, res) => {
-    res.render("login");
+    const messages = req.flash("error");
+    res.render("login", { messages: messages});
 })
 
 router.get("/register", async (req, res) => {

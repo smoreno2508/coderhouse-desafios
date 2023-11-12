@@ -17,6 +17,10 @@ const usersSchema = new Schema({
         type:String,
         required:true,
     },
+    isGithub: {
+        type:Boolean,
+        default:false,
+    },
 });
 
 

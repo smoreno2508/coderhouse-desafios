@@ -19,7 +19,6 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         return response.json();
     })
     .then(data => {
-        // Cambia 'data.success' por 'data.status === "success"'
         if (data.status === "success") {
             Swal.fire({
                 title: 'Registered!',
@@ -32,7 +31,6 @@ document.getElementById('registrationForm').addEventListener('submit', function(
                 }
             });
         } else {
-            // Aquí también puedes usar 'data.message' para mostrar el mensaje del servidor
             Swal.fire({
                 title: 'Error!',
                 text: data.message || 'An unknown error occurred',

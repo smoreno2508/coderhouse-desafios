@@ -6,6 +6,8 @@ import { engine } from 'express-handlebars';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import passport from './Passport.js';
+import flash from 'connect-flash';
 
 import errorHandler from '#middlewares/errorHandler.middleware.js';
 import mainRoutes from '#routes/index.js';
@@ -48,7 +50,10 @@ class Server {
             cookie: { maxAge: 120000 },
             resave: false,
             saveUninitialized: false,
-        }))
+        }));
+        this.app.use(passport.initialize());
+        this.app.use(passport.session());
+        this.app.use(flash());
     }
 
 
