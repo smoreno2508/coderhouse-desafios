@@ -47,26 +47,30 @@ passport.deserializeUser(async (id, done) => {
 // Github Strategy
 
 passport.use(new GithubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/api/auth/github/callback"
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  callbackURL: "http://localhost:8080/api/auth/github/callback",
+  scope: ["user:email"]
 }, async (accessToken, refreshToken, profile, done) => {
-    try {
-        const user = await userService.getUserbyEmail(profile._json.email);
-        if (!user) {
-            const newUser = await userService.addUser({
-                firstName: profile.displayName,
-                lastName: profile.displayName,
-                email: profile._json.email,
-                password: profile.id,
-                isGithub: true,
-            });
-            return done(null, newUser);
-        }
-        return done(null, user);
-    } catch (error) {
-        return done(error);
+  try {
+
+    const user = await userService.getUserbyEmail(profile.emails[0].value);
+
+    if (!user) {
+      const newUser = await userService.addUser({
+        firstName: profile.username,
+        lastName: profile.username,
+        email: profile.emails[0].value,
+        password: profile.id,
+        isGithub: true,
+      });
+
+      return done(null, newUser);
     }
+    return done(null, user);
+  } catch (error) {
+    return done(error);
+  }
 }));
 
 export default passport;
