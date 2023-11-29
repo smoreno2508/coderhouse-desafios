@@ -73,4 +73,11 @@ passport.use(new GithubStrategy({
   }
 }));
 
+// aqui ira mi nueva estrategia practica integradora 2
+
+
+
 export default passport;
+
+
+
