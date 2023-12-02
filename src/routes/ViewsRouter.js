@@ -1,76 +1,12 @@
 import { Router } from 'express';
-import { productService, cartService } from '#services/index.js';
+
+import * as viewController from '../controllers/ViewController.js';
 
 const router = Router();
 
-router.get('/', async (req, res, next) => {
-    try {
-        const { page, limit, sort, ...query } = req.query;
-
-        const productList = await productService.getProducts({
-            page: parseInt(page) || 1,
-            limit: parseInt(limit) || 12,
-            sort,
-            query
-        });
-
-        const pagination = {
-            ...productList,
-            pages: Array.from({ length: productList.totalPages }, (_, i) => i + 1)
-        };
-       
-        const categories = await productService.getUniqueCategories();
-
-        
-        if(req.isAuthenticated()){
-            
-            res.render('home', { 
-                productList: productList.docs.map(doc => doc.toObject()), 
-                ...pagination, 
-                sort, 
-                currentQuery: query,
-                categories,
-                user: req.user
-            });
-        } else {
-            res.redirect("/login");
-        }
-        
-        
-    } catch (error) {
-        next(error);
-    }
-});
-
-
-
-
-router.get("/cart/:cid", async (req, res, next) => {
-    try {
-        const { cid } = req.params;
-        const cart = await cartService.getCartById(cid);
-     
-        res.render("cart", { 
-            cart: cart.toObject(), 
-            countItems: cart.products.length, 
-        });
-        
-    } catch (error) {
-        next(error);
-    }
-});
-
-
-
-router.get("/product/:pid", async (req, res, next) => {
-    try {
-        const { pid } = req.params;
-        const product = await productService.getProductById(pid);
-        res.render("product", { product: product.toObject() });
-    } catch (error) {
-        next(error);
-    }
-});
+router.get('/', viewController.renderHomePage);
+router.get("/cart/:cid", viewController.getCartById);
+router.get("/product/:pid", viewController.getProductsById);
 
 router.get("/realtimeproducts", async (req, res) => {
     res.render("realtimeproducts")

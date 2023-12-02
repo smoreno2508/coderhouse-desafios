@@ -1,4 +1,3 @@
-
 import { cartService } from "#services/index.js";
 import { successResponse } from "#utils/utils.js";
 
@@ -16,7 +15,7 @@ const addProductToCart = async (req, res, next) => {
     try {
         const { cid, pid } = req.params;
         const cart = await cartService.addProductToCart(cid, pid);
-        
+
         successResponse(res, "Product added to cart successfully.", { cart });
     } catch (error) {
         next(error);
@@ -24,13 +23,12 @@ const addProductToCart = async (req, res, next) => {
 }
 
 const updateCart = async (req, res, next) => {
-    try{
-        console.log(req.params);
+    try {
         const { cid } = req.params;
-        const products  = req.body;
+        const products = req.body;
         const cartUpdated = await cartService.updateCart(cid, products);
         successResponse(res, "Cart updated successfully.", { cartUpdated });
-    }catch(error){
+    } catch (error) {
         next(error);
     }
 }
@@ -103,7 +101,7 @@ export {
     addProductToCart,
     clearCart,
     deleteCart,
-    updateQuantity, 
+    updateQuantity,
     deleteProductFromCart,
     updateCart
 }

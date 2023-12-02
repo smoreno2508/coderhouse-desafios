@@ -1,31 +1,17 @@
 import { Router } from 'express';
 import * as userController from '../controllers/UserController.js';
-import passport from 'passport';
+import * as sessionController from '../controllers/SessionController.js';
 
 const router = Router();
 
-router.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-}));
-
+router.post('/login', sessionController.passportLocalLogin);
 
 router.post("/register", userController.addUser);
 
-router.get("/logout", (req, res, next) => {
-    req.logout(function (err) {
-        if (err) { return next(err); }
-        res.redirect('/');
-    });
-    res.redirect('/login');
-});
+router.get("/logout", sessionController.logout);
 
-router.get("/auth/github", passport.authenticate("github", { scope: ["user:email"] }));
+router.get("/auth/github", sessionController.passportGithubLogin);
 
-router.get("/auth/github/callback", passport.authenticate("github", {
-    successRedirect: "/",
-    failureRedirect: "/login"
-}));
+router.get("/auth/github/callback", sessionController.passportGithubCallback);
 
 export default router;

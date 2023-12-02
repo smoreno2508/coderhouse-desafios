@@ -1,31 +1,30 @@
-import { userService } from '#services/index.js';
+import passport from 'passport';
 
-const findByEmail = async (req, res, next) => {
-    try {
-        const { email, password } = req.body;
-        const user = await userService.getUserbyEmail(email); 
 
-        if (!user) {
-            
-            res.render("noAuthorized", { message: 'User not found or invalid password.' }); 
-            return;
-        }
+const passportLocalLogin = passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+})
 
-        const isPasswordValid = password === user.password;
-        if (!isPasswordValid) {
-            res.render('login', { error: 'Contraseña incorrecta.' });
-            return;
-        }
+const passportGithubLogin = passport.authenticate("github", { scope: ["user:email"] });
 
-        req.session.user = { id: user.id, email: user.email, firtName: user.firstName };
-        res.redirect('/'); 
-    } catch (error) {
-        next(error);
-    }
+const passportGithubCallback = passport.authenticate("github", {
+    successRedirect: "/",
+    failureRedirect: "/login"
+})
+
+
+const logout = (req, res, next) => {
+    req.logout(function (err) {
+        if (err) { return next(err); }
+    });
+    res.redirect('/login');
 }
 
-
-
 export {
-    findByEmail,
+    passportLocalLogin,
+    passportGithubLogin,
+    passportGithubCallback,
+    logout
 };
