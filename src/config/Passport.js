@@ -15,13 +15,13 @@ passport.use(new LocalStrategy({
     const user = await userService.getUserbyEmail(email);
 
     if (!user) {
-      return done(null, false, { message: 'Incorrect email.' });
+      return done(null, false, { message: 'Incorrect password or email.' });
     }
 
     const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
-      return done(null, false, { message: 'Incorrect password.' });
+      return done(null, false, { message: 'Incorrect password or email.' });
     }
 
     return done(null, user);
@@ -73,7 +73,6 @@ passport.use(new GithubStrategy({
   }
 }));
 
-// aqui ira mi nueva estrategia practica integradora 2
 
 
 

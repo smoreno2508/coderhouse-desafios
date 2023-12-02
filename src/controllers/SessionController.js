@@ -1,7 +1,5 @@
 import { userService } from '#services/index.js';
 
-// En tu session.controller.js
-
 const findByEmail = async (req, res, next) => {
     try {
         const { email, password } = req.body;

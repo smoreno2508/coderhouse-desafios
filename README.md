@@ -10,11 +10,13 @@
 
 ```
 
-Se debe agregar el archivo .env, esta es la forma principal solo falta agrega la conexion a mongo:
+Se debe agregar el archivo .env, esta es la forma principal solo falta agrega la conexion a mongo y credenciales para passport github:
 
 ```
     PORT=8080
-    MONGODB_ATLAS=conexion_de_mongo
+    MONGODB_ATLAS=
     COOKIE_SECRET=SecretCookie
     SESSION_SECRET=SecretSession
+    GITHUB_CLIENT_ID=
+    GITHUB_CLIENT_SECRET=
 ```

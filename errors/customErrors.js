@@ -6,6 +6,12 @@ class BaseError extends Error {
     }
 }
 
+class NotAuthorizedError extends BaseError {
+    constructor(message = 'Not authorized') {
+        super('NotAuthorizedError', 401, message);
+    }
+}
+
 class NotFoundError extends BaseError {
     constructor(message = 'Resource not found') {
         super('NotFoundError', 404, message);
@@ -42,4 +48,11 @@ class ConflictError extends BaseError {
     }
 }
 
-export { NotFoundError, NotAvailableError, ValidationError, ConflictError, OutOfStockError, BadRequestError };
+export { 
+    NotFoundError,
+    NotAvailableError,
+    ValidationError,
+    ConflictError,
+    OutOfStockError,
+    BadRequestError,
+    NotAuthorizedError };

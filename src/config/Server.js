@@ -9,7 +9,7 @@ import MongoStore from 'connect-mongo';
 import passport from './Passport.js';
 import flash from 'connect-flash';
 
-import errorHandler from '#middlewares/errorHandler.middleware.js';
+import errorHandler from '#middlewares/ErrorHandlerMiddleware.js';
 import mainRoutes from '#routes/index.js';
 import dbConnection from './Database.js';
 import { __dirname } from '#utils/utils.js';
@@ -44,6 +44,7 @@ class Server {
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.static(__dirname + "/public"));
         this.app.use(cookieParser(process.env.COOKIE_SECRET));
+        this.app.use(passport.initialize());
         this.app.use(session({
             store: new MongoStore({ mongoUrl: process.env.MONGODB_ATLAS}),
             secret: process.env.SESSION_SECRET,
@@ -51,7 +52,6 @@ class Server {
             resave: false,
             saveUninitialized: false,
         }));
-        this.app.use(passport.initialize());
         this.app.use(passport.session());
         this.app.use(flash());
     }
