@@ -58,12 +58,14 @@ passport.use(new GithubStrategy({
 
     const user = await userService.getUserbyEmail(profile.emails[0].value);
 
+
     if (!user) {
       const newUser = await userService.addUser({
         firstName: profile.username,
         lastName: profile.username,
         email: profile.emails[0].value,
         password: profile.id,
+        age: 0,
         isGithub: true,
       });
 

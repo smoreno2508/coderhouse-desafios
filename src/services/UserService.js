@@ -26,7 +26,7 @@ export default class UserService {
     }
 
     async getUserById(id) {
-        const user = await User.findById(id);
+        const user = await User.findById(id).lean();
         if (!user) throw new NotFoundError(`User with ID ${id} not found!`);
         return user;
     }
