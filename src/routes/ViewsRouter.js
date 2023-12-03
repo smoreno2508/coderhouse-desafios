@@ -29,4 +29,8 @@ router.get("/noAuthorized", async (req, res) => {
     res.render("noAuthorized");
 });
 
+router.get("/current", async (req, res) =>{
+    res.render("current");
+});
+
 export default router;

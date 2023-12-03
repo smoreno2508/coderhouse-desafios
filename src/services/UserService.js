@@ -5,13 +5,13 @@ import { validateUser } from '#validators/userValidator.js';
 export default class UserService {
 
     async addUser(userData) {
-        const { firstName, lastName, email, password, isGithub } = userData;
+        const { firstName, lastName, email, password, age, isGithub } = userData;
 
         validateUser(firstName, lastName, email, password);
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = new User({ firstName, lastName, email, password: hashedPassword, isGithub });
+        const newUser = new User({ firstName, lastName, email, password: hashedPassword, isGithub, age });
         await newUser.save();
         return newUser;
     }
@@ -26,7 +26,7 @@ export default class UserService {
     }
 
     async getUserById(id) {
-        const user = User.findById(id).lean();
+        const user = await User.findById(id);
         if (!user) throw new NotFoundError(`User with ID ${id} not found!`);
         return user;
     }

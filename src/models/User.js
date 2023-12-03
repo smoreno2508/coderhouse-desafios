@@ -13,9 +13,23 @@ const usersSchema = new Schema({
         required:true,
         unique:true,
     },
+    age: {
+        type:Number,
+        required:true,
+    },
     password: {
         type:String,
         required:true,
+    },
+    cartId:{
+        type:Schema.Types.ObjectId,
+        ref:'carts'
+    },
+    role: {
+        type:String,
+        required:true,
+        enum:['admin','user'],
+        default:'user',
     },
     isGithub: {
         type:Boolean,

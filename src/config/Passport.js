@@ -1,6 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as GithubStrategy } from 'passport-github2';
+import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
 import bcrypt from 'bcrypt';
 import { config } from 'dotenv';
 import { userService } from '#services/index.js';
@@ -8,9 +9,10 @@ import { userService } from '#services/index.js';
 config();
 
 passport.use(new LocalStrategy({
+  passReqToCallback: true,
   usernameField: 'email',
   passwordField: 'password'
-}, async (email, password, done) => {
+}, async (req, email, password, done) => {
   try {
     const user = await userService.getUserbyEmail(email);
 
@@ -73,6 +75,26 @@ passport.use(new GithubStrategy({
   }
 }));
 
+
+// JWT Strategy
+
+passport.use(new JWTStrategy({
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.JWT_SECRET
+}, async (jwtPayload, done) => {
+  try {
+  
+    const user = await userService.getUserById(jwtPayload.id);
+
+    if (!user) {
+      return done(null, false, { message: 'Incorrect password or email.' });
+    }
+    return done(null, user);
+  } catch (error) {
+    return done(error);
+  }
+}
+));
 
 
 
